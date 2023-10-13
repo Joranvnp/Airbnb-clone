@@ -21,7 +21,7 @@ export default function Header() {
         <div className="input border-r">
           <p>N'importe qui</p>
         </div>
-        <div className="search-btn">Recherchez</div>
+        <div className="search-btn">Recherchez..</div>
       </div>
       <div>user</div>
     </header>
