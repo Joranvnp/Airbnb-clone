@@ -3,9 +3,11 @@ import { Counter } from "./Counter";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRangePicker } from "react-date-range";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const SearchBar = () => {
-  const [isSearchFocused, setSearchFocused] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
 
@@ -25,8 +27,11 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex flex-row self-center w-3/4 p-2 mt-8 border rounded-full">
-      <button onClick={() => setSearchFocused(true)}>
+    <div className="flex flex-row self-center justify-center w-3/4 py-2 mt-8 border rounded-full">
+      <button
+        className="px-4 text-left border-r"
+        onClick={() => setIsSearchFocused(true)}
+      >
         <p className="font-bold">Ou ?</p>
         {isSearchFocused ? (
           <input
@@ -62,14 +67,18 @@ const SearchBar = () => {
         </label>
         <div
           tabIndex={2}
-          className="p-2 shadow dropwdown-content menu bg-base-100 rounded-box w-52"
+          className="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52"
         >
           <Counter label="Adultes" />
         </div>
       </div>
-      <button className="flex flex-row justify-center gap-3 p-4 px-4 text-white rounded-full bg-primary">
-        <span>Search</span>
-      </button>
+      <Link
+        href="/search/results"
+        className="flex flex-row justify-center gap-3 p-4 px-4 text-white rounded-full bg-primary"
+      >
+        <MagnifyingGlassIcon className="w-5 h-5" />
+        <span>Recherchez</span>
+      </Link>
     </div>
   );
 };
