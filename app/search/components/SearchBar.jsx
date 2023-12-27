@@ -5,25 +5,28 @@ import "react-date-range/dist/theme/default.css";
 import { DateRangePicker } from "react-date-range";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { useSearchStore } from "../../../store";
 
 const SearchBar = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const locationInput = useSearchStore((state) => state.location);
+  const startDate = useSearchStore((state) => state.dates[0]);
+  const endDate = useSearchStore((state) => state.dates[1]);
 
   const handleSelect = (ranges) => {
-    if (ranges.selection.startDate !== startDate) {
-      setStartDate(ranges.selection.startDate);
-    }
-    if (ranges.selection.endDate !== endDate) {
-      setEndDate(ranges.selection.endDate);
-    }
+    useSearchStore.setState({
+      dates: [ranges.selection.startDate, ranges.selection.endDate],
+    });
   };
 
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: "selection",
+  };
+
+  const handleLocationUpdate = (e) => {
+    useSearchStore.setState({ location: e.target.value });
   };
 
   return (
@@ -37,6 +40,8 @@ const SearchBar = () => {
           <input
             type="text"
             placeholder="Recherchez une destination"
+            onChange={handleLocationUpdate}
+            value={locationInput}
             className="bg-transparent border-none outline-none text-slate-800"
           />
         ) : (

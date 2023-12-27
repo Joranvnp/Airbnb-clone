@@ -1,6 +1,6 @@
 import Header from "./Header";
 
-export default function SearchLayer({ children }) {
+export default function SearchLayout({ children }) {
   return (
     <>
       <Header />
